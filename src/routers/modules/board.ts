@@ -11,19 +11,16 @@ const protectCreateProfileRoute: NavigationGuardWithThis<any> = (to, from, next)
     }
 };
 
-export const profleRoute: RouteRecordRaw = {
-    path: "/profiles",
-    name: "profile",
-    // beforeEnter: [authGuard],
+export const boardRoute: RouteRecordRaw = {
+    path: "/boards",
+    name: "boards",
+    beforeEnter: [authGuard],
+    component: () => import("@/pages/boards/index.vue"),
     children: [
         {
-            path: "create",
-            name: "profile-create",
-            component: () => import("@/pages/profiles/create.vue"),
-            beforeEnter: protectCreateProfileRoute,
-            meta: {
-                layout: "GuestLayout",
-            },
+            path: ":boardId",
+            name: "board-detail",
+            component: () => import("@/pages/boards/_id.vue"),
         },
     ],
 };

@@ -25,7 +25,7 @@ export const useAuthStore = defineStore({
                 access: "",
                 refresh: "",
             };
-            location.reload();
+            // location.reload();
             // router.push({ name: "login" });
         },
         setUser(user: IUser) {
@@ -39,7 +39,7 @@ export const useAuthStore = defineStore({
                     this.token.access = access_token;
                     const user = await getInfoApi();
                     console.log("LOG user", user);
-                    user.data && (this.user = user.data);
+                    user && (this.user = user);
                     this.isLoggedIn = true;
                     console.log("Login state:", this.isLoggedIn, this.user);
                 }

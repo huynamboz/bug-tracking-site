@@ -16,8 +16,8 @@ async function refreshToken() {
                 refresh_token: localStorage.getItem(config.key.refreshToken),
             },
         });
-        authStore.token.access = response.data[config.key.accessToken];
-        authStore.token.refresh = response.data[config.key.refreshToken];
+        authStore.token.access = response.token.access.token;
+        authStore.token.refresh = response.token.refresh.token;
         localStorage.setItem(config.key.accessToken, authStore.token.access);
         localStorage.setItem(config.key.refreshToken, authStore.token.refresh);
         return true;
@@ -51,10 +51,11 @@ async function handleUnauthorizedError(error: FetchContext): Promise<any> {
 }
 
 function isAllowRefreshToken(error: FetchContext) {
+  console.log("Unauthorized.", error);
     return (
         error.response &&
         config.retryStatusCodes.includes(error.response.status) &&
-        !error.response._data?.error.code.startsWith("ERR.SIG")
+        !error.response?.url.includes('/login')
     );
 }
 

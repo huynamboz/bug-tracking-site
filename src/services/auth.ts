@@ -11,13 +11,12 @@ export const loginApi = async (
     }>
 > => {
     return $http.default(
-        "/sign-in",
+        "/auth/login",
         {
             method: "POST",
             body: {
                 email,
                 password,
-                service: "TEAM",
             },
         },
         false,

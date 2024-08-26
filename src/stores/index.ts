@@ -8,15 +8,15 @@ export const initAuthStore = async () => {
     const authStore = useAuthStore();
     const workspaceStore = useWorkspaceStore();
     await authStore.setupAuth();
-    if (authStore.getIsLoggedIn) {
-        await Promise.all([workspaceStore.setupWorkspace()]);
-    }
+    // if (authStore.getIsLoggedIn) {
+    //     await Promise.all([workspaceStore.setupWorkspace()]);
+    // }
 };
 
 export const initMasterStore = async () => {
     try {
-        const masterStore = useMasterStore();
-        await Promise.all([masterStore.setMasterData(), masterStore.setEmojis()]);
+        // const masterStore = useMasterStore();
+        // await Promise.all([masterStore.setMasterData(), masterStore.setEmojis()]);
     } catch (error) {
         notify.error("Xảy ra lỗi khi lấy dữ liệu");
     }

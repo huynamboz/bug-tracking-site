@@ -6,9 +6,9 @@ export const apiExceptionHandler = (e: any) => {
         message: "Internal server error",
     };
 
-    if (e?.data?.error) {
-        error.code = e?.data?.error?.code?.replace(".", "_") ?? "";
-        error.message = e?.data?.error?.message ?? "";
+    console.log(e);
+    if (e?.data) {
+        error.message = e?.data?.message ?? "";
     } else if (e.code && e.message) {
         error.code = e?.code;
         error.message = e?.message;

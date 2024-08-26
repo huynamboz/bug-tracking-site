@@ -4,6 +4,6 @@ import { authGuard } from "../auth-guard";
 export const homeRoute: RouteRecordRaw = {
     path: "/",
     name: "home",
-    // beforeEnter: [authGuard],
+    beforeEnter: [authGuard],
     component: () => import("@/pages/HomeView.vue"),
 };

@@ -3,44 +3,36 @@ import draggable from "vuedraggable";
 
 import Card from "./card/Card.vue";
 import type { Task } from "@/types/task";
-const cards = ref<Task[]>([
-    {
-        id: "0000-0000-0000-0000", // uuid
-        name: "Card 1",
-        position: 1,
-        description: "This is a card description",
-        total_checklist: 3,
-        total_checklist_done: 2,
-        label: {
-            name: "Label 1",
-            color: "red",
-            id: "0000-0000-0000-0000",
-        }
-    },
-    {
-        id: "0000-0000-0000-0001", // uuid
-        name: "Card 2",
-        position: 2,
-        description: "This is a card description",
-        total_checklist: 3,
-        total_checklist_done: 1,
-    },
-    {
-        id: "0000-0000-0000-0002", // uuid
-        name: "Card 3",
-        position: 3,
-        description: "This is a card description",
-        total_checklist: 3,
-        total_checklist_done: 3,
-    },
-]);
+import { getCardsApi } from "@/services/tasks";
+import { apiExceptionHandler } from "@/utils/exceptionHandler";
+import { notify } from "@/utils/toast";
+const cards = ref<Task[]>([]);
 
-const changePosition = (event) => {
-    console.log(event);
+const prop = defineProps<{
+    group: any
+}>();
+
+const getCards = async () => {
+    try {
+        const res = await getCardsApi(prop.group.id);
+        cards.value = res.results;
+    } catch (error) {
+        notify.error(apiExceptionHandler(error).message);
+    }
 };
+
+onBeforeMount(() => {
+    getCards();
+});
 </script>
 <template>
-    <div class="h-fit">
+    <div class="h-fit w-[250px] ">
+      <div class="mb-3 flex items-center gap-1">
+        <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+        <p class="text-lg font-semibold">
+          {{ group.name }}
+        </p>
+      </div>
       <div class="w-full border bg-white mb-3 p-2 flex justify-center rounded-md text-blue-500 font-semibold">
         + Add Card
       </div>

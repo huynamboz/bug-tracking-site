@@ -1,7 +1,7 @@
 import { $http } from "@/http/ofetch";
 
 export const getBoardsApi = (): Promise<any> => {
-    return $http.workspace("/boards", {
+    return $http.default("/boards", {
         method: "GET",
     });
 };
@@ -14,7 +14,7 @@ export const createBoardApi = (title: string): Promise<any> => {
 };
 
 export const getGroupsApi = (boardId: string): Promise<any> => {
-    return $http.default(`/workspaces/boards/${boardId}/group-tasks`, {
+    return $http.default(`/boards/${boardId}/group-cards`, {
         method: "GET",
     });
 };
@@ -47,8 +47,8 @@ export const createGroupApi = (boardId: string, title: string): Promise<any> => 
     });
 };
 
-export const getTasksApi = (groupId: string, page: number = 1): Promise<any> => {
-    return $http.default(`/workspaces/group-tasks/${groupId}/tasks`, {
+export const getCardsApi = (groupId: string, page: number = 1): Promise<any> => {
+    return $http.default(`/boards/group-cards/${groupId}/cards`, {
         method: "GET",
         query: { page },
     });

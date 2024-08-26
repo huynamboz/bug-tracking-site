@@ -6,7 +6,7 @@ defineProps<{
 }>()
 </script>
 <template>
-  <div class="w-[250px] border bg-white rounded-lg cursor-pointer">
+  <div class="border bg-white rounded-lg cursor-pointer">
     <!-- header -->
     <div>
       <div class="p-2 flex justify-between items-center">

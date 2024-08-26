@@ -21,10 +21,10 @@ const [password, passwordAttrs] = defineField("password");
 
 const onSubmit = handleSubmit(async (values) => {
     try {
-        const { data } = await loginApi(values.email, values.password);
+        const data = await loginApi(values.email, values.password);
         console.log(data);
-        localStorage.setItem("access_token", data.access_token);
-        localStorage.setItem("refresh_token", data.refresh_token);
+        localStorage.setItem("access_token", data.tokens.access.token);
+        localStorage.setItem("refresh_token", data.tokens.refresh.token);
         location.reload();
     } catch (error) {
         notify.error(apiExceptionHandler(error).message);
