@@ -1,12 +1,41 @@
 <script setup lang="ts">
 import type { Task } from "@/types/task";
 import Chip from "@/components/base/Chip.vue";
-defineProps<{
+import ConfirmDialog from "primevue/confirmdialog";
+import { useConfirm } from "primevue/useconfirm";
+const prop = defineProps<{
     card: Task;
 }>();
+
+const emit = defineEmits<{
+    (e: "delete", id: string): void;
+}>();
+const confirm = useConfirm();
+
+const confirmElement = ref(null);
+const confirmP = () => {
+    confirm.require({
+        message: "Are you sure you want to delete this card?",
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        rejectProps: {
+            label: "Cancel",
+            severity: "secondary",
+            outlined: true,
+        },
+        acceptProps: {
+            label: "Save",
+        },
+        accept: () => {
+            emit("delete", prop.card.id);
+        },
+        reject: () => {},
+    });
+};
 </script>
 <template>
-    <div class="cursor-pointer p-4 pt-1">
+    <div class="cursor-pointer p-4 pt-1 group">
+        <ConfirmDialog></ConfirmDialog>
         <div
             class="bg-white rounded-lg shadow-secondary border border-transparent hover:border-blue-500"
         >
@@ -21,10 +50,15 @@ defineProps<{
                             v-bind="tag"
                         />
                     </div>
-                    <Icon
-                        icon="fluent:more-vertical-24-filled"
-                        class="text-gray-500 text-xl min-w-5"
-                    />
+                    <button
+                        ref="confirmElement"
+                        @click.stop="confirmP"
+                    >
+                        <Icon
+                            icon="hugeicons:delete-01"
+                            class="text-gray-500 text-lg min-w-5 opacity-0 group-hover:opacity-[1]"
+                        />
+                    </button>
                 </div>
             </div>
 
@@ -40,9 +74,9 @@ defineProps<{
                             icon="hugeicons:check-list"
                             class="text-gray-500"
                         />
-                        <div class="text-xs font-semibold">
+                        <!-- <div class="text-xs font-semibold">
                             {{ card.total_checklist_done }}/{{ card.total_checklist }}
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

@@ -136,6 +136,12 @@ export const deleteCardLabelApi = (
     });
 };
 
+export const deleteCardApi = (groupId: string, cardId: string): Promise<any> => {
+    return $http.default(`/boards/group-cards/${groupId}/cards/${cardId}`, {
+        method: "DELETE",
+    });
+};
+
 // CHECKLIST
 export const createChecklistApi = (taskId: string, payload: any): Promise<any> => {
     return $http.default(`/workspaces/tasks/${taskId}`, {

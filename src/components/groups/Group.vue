@@ -3,7 +3,7 @@ import draggable from "vuedraggable";
 import CreateGroup from "./CreateGroup.vue";
 import Card from "./card/Card.vue";
 import type { IGroup, Task } from "@/types/task";
-import { changeCardPositionApi, createCardApi, getCardsApi } from "@/services/tasks";
+import { changeCardPositionApi, createCardApi, deleteCardApi, getCardsApi } from "@/services/tasks";
 import { apiExceptionHandler } from "@/utils/exceptionHandler";
 import { notify } from "@/utils/toast";
 import Drawer from "primevue/drawer";
@@ -65,6 +65,16 @@ const openDetail = (val: Task) => {
     cardDetailIndex.value = index;
     visible.value = true;
 };
+
+const handleDeleteCard = async (id: string) => {
+    try {
+        await deleteCardApi(prop.group.id, id);
+        cards.value = cards.value.filter((card) => card.id !== id);
+        notify.success("Delete card success");
+    } catch (error) {
+        notify.error("Delete card failed");
+    }
+};
 </script>
 <template>
     <div class="flex flex-col w-[280px] bg-[#f6f7f9] rounded-xl h-full overflow-hidden">
@@ -88,11 +98,14 @@ const openDetail = (val: Task) => {
             <p class="text-lg font-semibold">
                 {{ group.name }}
             </p>
-            <div class="ml-auto w-2 min-w-2 h-2">
-                <Icon
+            <div
+                class="ml-auto w-5 min-w-5 h-5 rounded-md flex items-center text-xs justify-center text-white bg-blue-400"
+            >
+                <!-- <Icon
                     icon="fluent:more-vertical-24-filled"
                     class="text-gray-500 text-xl min-w-5 cursor-pointer"
-                />
+                /> -->
+                {{ cards.length }}
             </div>
         </div>
         <div class="px-4 pb-2">
@@ -113,6 +126,7 @@ const openDetail = (val: Task) => {
                 <Card
                     :card="element"
                     @click="openDetail(element)"
+                    @delete="handleDeleteCard"
                 />
             </template>
         </draggable>

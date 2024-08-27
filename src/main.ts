@@ -25,6 +25,8 @@ import { i18n } from "./plugins/i18n";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import Vue3Toastify from "./plugins/toast";
+import ConfirmationService from "primevue/confirmationservice";
+
 const initApp = async () => {
     app.component("Icon", Icon);
     app.use(Vue3Toastify.Vue3Toastify, Vue3Toastify.options);
@@ -39,6 +41,7 @@ const initApp = async () => {
             },
         },
     });
+    app.use(ConfirmationService);
     app.use(i18n);
     app.use(MotionPlugin);
     app.use(TouchOutSide);
