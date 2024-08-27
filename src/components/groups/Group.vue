@@ -41,8 +41,8 @@ const handleCreateCard = async (data: string) => {
 };
 
 const onAdd = async (e: any) => {
+    if (!e.added && !e.moved) return;
     const card = e.added || e.moved;
-    console.log(card, card.newIndex + 1, cards.value[card.newIndex + 1]?.id);
     try {
         await changeCardPositionApi(prop.group.id, card.element.id, {
             previousCardId: cards.value[card.newIndex + 1]?.id || null,
