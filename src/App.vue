@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useLoadingStore } from "./stores/loading";
+import ConfirmDialog from "primevue/confirmdialog";
 const route = useRoute();
 
 const layout = computed(() => {
@@ -21,6 +22,7 @@ const loadingStore = useLoadingStore();
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" /> -->
+    <ConfirmDialog></ConfirmDialog>
     <ModalConfirm />
     <div
         v-if="loadingStore.getLoading"
