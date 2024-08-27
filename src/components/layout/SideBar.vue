@@ -56,7 +56,7 @@ const handleCreateBoard = async (data: string) => {
             />
             <div>
                 <div class="ml-2 text-sm font-semibold">{{ board.name }}</div>
-                <div class="ml-2 text-xs font-base">{{ board.quote || "25 members" }}</div>
+                <div class="ml-2 text-xs font-base">{{ board.quote || "0 members" }}</div>
             </div>
         </RouterLink>
     </div>
