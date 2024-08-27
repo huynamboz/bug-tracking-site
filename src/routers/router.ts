@@ -1,14 +1,10 @@
 import { createWebHistory, createRouter, type RouteRecordRaw } from "vue-router";
-import { authRoute, homeRoute, boardRoute, workspaceRoute, calendarRoute } from "./modules";
+import { authRoute, homeRoute, boardRoute } from "./modules";
 
 const routes: RouteRecordRaw[] = [
     homeRoute,
     boardRoute,
     ...authRoute,
-    {
-        ...workspaceRoute,
-        children: [calendarRoute],
-    },
     {
         path: "/test",
         component: () => import("@/pages/test.vue"),
