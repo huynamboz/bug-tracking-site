@@ -7,5 +7,6 @@ export default {
         autoClose: 3000,
         transition: "slide",
         hideProgressBar: true,
+        position: "bottom-left",
     } as ToastContainerOptions,
 };
