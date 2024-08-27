@@ -73,8 +73,8 @@ export const deleteTaskApi = (groupId: string, taskId: string): Promise<any> => 
     });
 };
 
-export const updateTaskApi = (groupId: string, taskId: string, payload: any): Promise<any> => {
-    return $http.default(`/workspaces/group-tasks/${groupId}/tasks/${taskId}`, {
+export const updateCardApi = (groupId: string, cardId: string, payload: any): Promise<any> => {
+    return $http.default(`/boards/group-cards/${groupId}/cards/${cardId}`, {
         method: "PATCH",
         body: payload,
     });

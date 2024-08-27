@@ -3,7 +3,7 @@ import Textarea from "primevue/textarea";
 import Chip from "@/components/base/Chip.vue";
 import type { Task } from "@/types/task";
 import AddLabel from "./AddLabel.vue";
-import { addCardLabelApi, deleteCardLabelApi } from "@/services/tasks";
+import { addCardLabelApi, deleteCardLabelApi, updateCardApi } from "@/services/tasks";
 import { vOnClickOutside } from "@vueuse/components";
 import { notify } from "@/utils/toast";
 import { apiExceptionHandler } from "@/utils/exceptionHandler";
@@ -14,7 +14,7 @@ const prop = defineProps<{
 
 const card = defineModel<Task>({ required: true });
 
-const data = ref(card.value.description);
+const description = ref(card.value.description);
 const isShowAddLabel = ref(false);
 
 const handleAddLabel = async (data: { name: string; color: string }) => {
@@ -41,6 +41,17 @@ const hanleDeleteLabel = async (id: string) => {
 
 const closeAddLabel = () => {
     isShowAddLabel.value = false;
+};
+
+const handleUdpateDescription = async () => {
+    try {
+        await updateCardApi(prop.groupId, card.value.id, { description: description.value });
+        card.value.description = description.value;
+        notify.success("Update description success");
+    } catch (error) {
+        console.log(error);
+        notify.error(apiExceptionHandler(error).message);
+    }
 };
 </script>
 <template>
@@ -89,10 +100,11 @@ const closeAddLabel = () => {
             <p class="text-sm font-base">Description</p>
         </div>
         <Textarea
-            v-model="data"
+            v-model="description"
             class="w-full mt-3"
             rows="3"
             cols="30"
+            @blur="handleUdpateDescription"
         />
     </div>
 </template>
