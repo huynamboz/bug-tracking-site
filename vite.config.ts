@@ -16,9 +16,9 @@ export default ({ mode }: { mode: string }) => {
             }),
             svgLoader(),
         ],
-        server: {
-            port: parseInt(process.env.VITE_PORT as string),
-        },
+        // server: {
+        //     port: parseInt(process.env.VITE_PORT as string),
+        // },
         resolve: {
             alias: {
                 "@": path.resolve(__dirname, "./src"),
