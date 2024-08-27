@@ -12,7 +12,6 @@ const emit = defineEmits<{
 }>();
 const confirm = useConfirm();
 
-const confirmElement = ref(null);
 const confirmP = () => {
     confirm.require({
         message: "Are you sure you want to delete this card?",
@@ -50,10 +49,7 @@ const confirmP = () => {
                             v-bind="tag"
                         />
                     </div>
-                    <button
-                        ref="confirmElement"
-                        @click.stop="confirmP"
-                    >
+                    <button @click.stop="confirmP">
                         <Icon
                             icon="hugeicons:delete-01"
                             class="text-gray-500 text-lg min-w-5 opacity-0 group-hover:opacity-[1]"
