@@ -43,9 +43,7 @@ const onSubmit = handleSubmit(async (values) => {
                     alt=""
                 />
                 <h1 class="text-[344054] text-lg font-semibold mt-3">Đăng nhập</h1>
-                <h2 class="mt-1 text-[#667085]">
-                    Chào mừng đến nền tảng làm việc trực tuyến nhanh chóng, hiệu quả, bảo mật
-                </h2>
+                <h2 class="mt-1 text-[#667085]">Hello, welcome back to your account</h2>
                 <div class="mt-6">
                     <InputText
                         v-model="email"
@@ -65,31 +63,32 @@ const onSubmit = handleSubmit(async (values) => {
                     <ErrorMessage :error="errors.password" />
                 </div>
                 <div class="text-end">
-                    <RouterLink
+                    <div
                         class="text-[#0921D9] text-xs font-semibold"
                         :to="{ name: 'password-forgot' }"
                     >
                         Quên mật khẩu
-                    </RouterLink>
+                    </div>
                 </div>
                 <Button
-                    class="mt-6 !bg-[#097B66]"
+                    class="mt-6"
                     label="Đăng nhập"
                 ></Button>
                 <div class="flex justify-center mt-6">
                     <p>Chưa có tài khoản?</p>
-                    <RouterLink
+                    <div
                         class="ml-[6px] text-[#0921D9] font-semibold"
                         to="/register"
-                        >đăng ký</RouterLink
                     >
+                        đăng ký
+                    </div>
                 </div>
             </form>
         </div>
         <div class="flex-1 relative max-md:hidden">
             <img
                 class="absolute top-0 left-0 w-full h-full object-cover rounded-tl-3xl rounded-bl-3xl"
-                src="@/assets/img/BG.png"
+                src="/assets/images/bg.avif"
                 alt=""
             />
         </div>
