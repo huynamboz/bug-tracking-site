@@ -50,7 +50,7 @@ const handleCreateBoard = async (data: string) => {
             class="w-full flex items-center mt-1 border p-3 py-1 rounded-md"
         >
             <Avatar
-                image="https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png"
+                image="/assets/images/bg2.avif"
                 class="mr-2"
                 shape="circle"
             />
