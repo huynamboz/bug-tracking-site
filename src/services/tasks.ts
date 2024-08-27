@@ -38,11 +38,11 @@ export const deleteGroupApi = (boardId: string, taskId: string): Promise<any> =>
     });
 };
 
-export const createGroupApi = (boardId: string, title: string): Promise<any> => {
-    return $http.default(`/workspaces/boards/${boardId}/group-tasks`, {
+export const createGroupApi = (boardId: string, name: string): Promise<any> => {
+    return $http.default(`/boards/${boardId}/group-cards`, {
         method: "POST",
         body: {
-            title,
+            name,
         },
     });
 };
@@ -60,10 +60,10 @@ export const getTaskApi = (groupId: string, taskId: string): Promise<any> => {
     });
 };
 
-export const createTaskApi = (groupId: string, formData: any): Promise<any> => {
-    return $http.default(`/workspaces/group-tasks/${groupId}/tasks`, {
+export const createCardApi = (groupId: string, data: any): Promise<any> => {
+    return $http.default(`/boards/group-cards/${groupId}/cards`, {
         method: "POST",
-        body: formData,
+        body: data,
     });
 };
 
@@ -80,17 +80,16 @@ export const updateTaskApi = (groupId: string, taskId: string, payload: any): Pr
     });
 };
 
-interface ChangeTaskPositionPayload {
-    previous_task_id: string;
-    group_id: string;
+interface ChangeCardPositionPayload {
+    previousCardId: string | null;
+    newGroupId: string;
 }
-
-export const changeTaskPositionApi = (
+export const changeCardPositionApi = (
     groupId: string,
-    taskId: string,
-    payload: ChangeTaskPositionPayload,
+    cardId: string,
+    payload: ChangeCardPositionPayload,
 ): Promise<any> => {
-    return $http.default(`/workspaces/group-tasks/${groupId}/tasks/${taskId}/change-position`, {
+    return $http.default(`/boards/group-cards/${groupId}/cards/${cardId}/change-position`, {
         method: "POST",
         body: payload,
     });
@@ -160,4 +159,3 @@ export const sendTaskCommentApi = (taskId: string, payload: any): Promise<any> =
         body: payload,
     });
 };
-// END TASK COMMENT //

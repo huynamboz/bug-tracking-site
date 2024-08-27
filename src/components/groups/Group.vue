@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import draggable from "vuedraggable";
-
+import CreateGroup from "./CreateGroup.vue";
 import Card from "./card/Card.vue";
-import type { Task } from "@/types/task";
-import { getCardsApi } from "@/services/tasks";
+import type { IGroup, Task } from "@/types/task";
+import { changeCardPositionApi, createCardApi, getCardsApi } from "@/services/tasks";
 import { apiExceptionHandler } from "@/utils/exceptionHandler";
 import { notify } from "@/utils/toast";
 const cards = ref<Task[]>([]);
 
 const prop = defineProps<{
-    group: any
+    group: IGroup;
 }>();
 
 const getCards = async () => {
@@ -24,26 +24,58 @@ const getCards = async () => {
 onBeforeMount(() => {
     getCards();
 });
+
+const handleCreateCard = async (data: string) => {
+    try {
+        const res = await createCardApi(prop.group.id, {
+            name: data,
+            description: "",
+        });
+        cards.value.unshift(res);
+    } catch (error) {
+        notify.error("Create card failed");
+    }
+};
+
+const onAdd = async (e: any) => {
+  const card = e.added || e.moved;
+  console.log(card, card.newIndex + 1, cards.value[card.newIndex + 1]?.id);
+    try {
+        await changeCardPositionApi(prop.group.id, card.element.id, {
+            previousCardId: cards.value[card.newIndex + 1]?.id || null,
+            newGroupId: prop.group.id,
+        });
+    } catch (error) {
+        console.log(error);
+        notify.error("Change card position failed");
+    }
+};
 </script>
 <template>
-    <div class="h-fit w-[250px] ">
-      <div class="mb-3 flex items-center gap-1">
-        <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-        <p class="text-lg font-semibold">
-          {{ group.name }}
-        </p>
-      </div>
-      <div class="w-full border bg-white mb-3 p-2 flex justify-center rounded-md text-blue-500 font-semibold">
-        + Add Card
-      </div>
-      <draggable
-          :drag="true"
-          class="flex flex-col gap-5 overflow-hidden h-full"
-          group="cards"
-          :list="cards" item-key="id">
-          <template #item="{element}">
-              <Card :card="element" />
-          </template>
+    <div class="h-fit w-[280px] bg-[#f6f7f9] rounded-xl">
+        <div class="mb-3 flex items-center gap-1 px-4 pt-4">
+            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+            <p class="text-lg font-semibold">
+                {{ group.name }}
+            </p>
+        </div>
+        <div class="px-4 pb-2">
+            <CreateGroup
+                label="Add card"
+                @save="handleCreateCard"
+            />
+        </div>
+        <draggable
+            :drag="true"
+            class="flex flex-col overflow-hidden h-full"
+            group="cards"
+            :list="cards"
+            item-key="id"
+            @change="onAdd"
+        >
+            <template #item="{ element }">
+                <Card :card="element" />
+            </template>
         </draggable>
     </div>
 </template>

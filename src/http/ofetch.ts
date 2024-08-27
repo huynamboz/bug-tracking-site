@@ -13,11 +13,11 @@ async function refreshToken() {
             retry: false,
             method: "POST",
             body: {
-                refresh_token: localStorage.getItem(config.key.refreshToken),
+              refreshToken: localStorage.getItem(config.key.refreshToken),
             },
         });
-        authStore.token.access = response.token.access.token;
-        authStore.token.refresh = response.token.refresh.token;
+        authStore.token.access = response.access.token;
+        authStore.token.refresh = response.refresh.token;
         localStorage.setItem(config.key.accessToken, authStore.token.access);
         localStorage.setItem(config.key.refreshToken, authStore.token.refresh);
         return true;
