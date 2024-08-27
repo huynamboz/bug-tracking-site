@@ -4,7 +4,7 @@ import Group from "@/components/groups/Group.vue";
 import CreateGroup from "@/components/groups/CreateGroup.vue";
 import { apiExceptionHandler } from "@/utils/exceptionHandler";
 import { notify } from "@/utils/toast";
-import { createGroupApi, getGroupsApi } from "@/services/tasks";
+import { changeGroupCardPositionApi, createGroupApi, getGroupsApi } from "@/services/tasks";
 import type { IGroup } from "@/types/task";
 const groupCards = ref();
 
@@ -35,6 +35,19 @@ const handleCreateGroup = async (data: string) => {
         notify.error("Create group failed");
     }
 };
+
+const onMove = async (e: any) => {
+    const group = e.moved;
+    console.log(group, group.newIndex + 1, groupCards.value[group.newIndex + 1]?.id);
+    try {
+        await changeGroupCardPositionApi(boardId.value, group.element.id, {
+            previousGroupId: groupCards.value[group.newIndex + 1]?.id || null,
+        });
+    } catch (error) {
+        console.log(error);
+        notify.error("Change card position failed");
+    }
+};
 </script>
 <template>
     <div class="w-full h-full overflow-hidden flex">
@@ -46,17 +59,18 @@ const handleCreateGroup = async (data: string) => {
                 :drag="true"
                 class="flex gap-5 h-full"
                 item-key="id"
+                @change="onMove"
             >
                 <template #item="{ element }">
                     <Group :group="element" />
                 </template>
             </draggable>
             <div class="min-w-[280px] h-fit bg-[#f6f7f9] rounded-xl p-4">
-              <CreateGroup
-                  label="Add Group"
-                  :board-id="boardId"
-                  @save="handleCreateGroup"
-              />
+                <CreateGroup
+                    label="Add Group"
+                    :board-id="boardId"
+                    @save="handleCreateGroup"
+                />
             </div>
         </div>
     </div>

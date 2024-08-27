@@ -8,8 +8,9 @@ const authStore = useAuthStore();
     <div
         class="fixed top-0 left-0 z-[999] w-full h-[54px] items-center px-7 flex justify-between border-b"
     >
-        <div class="navbar__left flex gap-5 items-center">
-            <TopBarWorkspaceSwitcher />
+        <div class="navbar__left flex items-center text-xl font-semibold italic">
+            <span class="text-rose-500">BUG</span>
+            <span>TRACKER</span>
             <!-- <TopBarMembers /> -->
         </div>
         <div>

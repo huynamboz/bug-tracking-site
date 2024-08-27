@@ -96,6 +96,20 @@ export const changeCardPositionApi = (
     });
 };
 
+interface ChangeGroupCardPositionPayload {
+    previousGroupId: string | null;
+}
+export const changeGroupCardPositionApi = (
+    boardId: string,
+    groupId: string,
+    payload: ChangeGroupCardPositionPayload,
+): Promise<any> => {
+    return $http.default(`/boards/${boardId}/group-cards/${groupId}/change-position`, {
+        method: "POST",
+        body: payload,
+    });
+};
+
 interface addLabelPayload {
     name: string | null;
     color: string;

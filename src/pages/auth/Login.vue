@@ -42,8 +42,11 @@ const onSubmit = handleSubmit(async (values) => {
                     src=""
                     alt=""
                 />
-                <h1 class="text-[344054] text-lg font-semibold mt-3">Đăng nhập</h1>
-                <h2 class="mt-1 text-[#667085]">Hello, welcome back to your account</h2>
+                <h1 class="text-[344054] text-lg font-semibold mt-3">Login</h1>
+                <b class="my-2 inline-block">Test account:</b>
+                <p><b>Email</b>: a@gmail.com</p>
+                <p><b>Password</b>: 123456Aa</p>
+                <!-- <h2 class="mt-1 text-[#667085]">Hello, welcome back to your account</h2> -->
                 <div class="mt-6">
                     <InputText
                         v-model="email"
@@ -72,7 +75,7 @@ const onSubmit = handleSubmit(async (values) => {
                 </div>
                 <Button
                     class="mt-6"
-                    label="Đăng nhập"
+                    label="Login"
                 ></Button>
                 <div class="flex justify-center mt-6">
                     <p>Chưa có tài khoản?</p>
