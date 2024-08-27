@@ -5,11 +5,11 @@ export interface Task {
     description: string;
     total_checklist: number;
     total_checklist_done: number;
-    label?: {
+    labels: Array<{
         id: string;
         name: string;
         color: string;
-    };
+    }>;
 }
 
 export interface IGroup {

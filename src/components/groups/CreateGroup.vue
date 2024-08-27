@@ -40,15 +40,18 @@ const save = async () => {
 <template>
     <div class="">
         <div
-            class="cursor-pointer h-fit border bg-white mb-3 p-2 flex justify-center rounded-md text-blue-500 font-semibold"
+            class="cursor-pointer h-fit border bg-white p-2 flex justify-center rounded-md text-blue-500 font-semibold"
             @click="showInput"
         >
-            + {{ label }}
+            <slot>+ {{ label }}</slot>
         </div>
-        <div v-if="isShowInput">
+        <div
+            v-if="isShowInput"
+            class="mt-3"
+        >
             <InputText
                 v-model="name"
-                placeholder="Enter group name"
+                placeholder="Enter name"
                 size="small"
                 class="w-full"
             />

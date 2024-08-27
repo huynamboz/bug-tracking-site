@@ -6,6 +6,9 @@ import type { IGroup, Task } from "@/types/task";
 import { changeCardPositionApi, createCardApi, getCardsApi } from "@/services/tasks";
 import { apiExceptionHandler } from "@/utils/exceptionHandler";
 import { notify } from "@/utils/toast";
+import Drawer from "primevue/drawer";
+import CardDetail from "./card/CardDetail.vue";
+
 const cards = ref<Task[]>([]);
 
 const prop = defineProps<{
@@ -38,8 +41,8 @@ const handleCreateCard = async (data: string) => {
 };
 
 const onAdd = async (e: any) => {
-  const card = e.added || e.moved;
-  console.log(card, card.newIndex + 1, cards.value[card.newIndex + 1]?.id);
+    const card = e.added || e.moved;
+    console.log(card, card.newIndex + 1, cards.value[card.newIndex + 1]?.id);
     try {
         await changeCardPositionApi(prop.group.id, card.element.id, {
             previousCardId: cards.value[card.newIndex + 1]?.id || null,
@@ -50,9 +53,36 @@ const onAdd = async (e: any) => {
         notify.error("Change card position failed");
     }
 };
+
+const visible = ref(false);
+
+const cardDetailIndex = ref<number>(-1);
+
+const openDetail = (val: Task) => {
+    console.log(val);
+    // card.value = val;
+    const index = cards.value.findIndex((item) => item.id === val.id);
+    cardDetailIndex.value = index;
+    visible.value = true;
+};
 </script>
 <template>
     <div class="h-fit w-[280px] bg-[#f6f7f9] rounded-xl">
+        <Drawer
+            v-model:visible="visible"
+            class="w-[400px]"
+            header="Card detail"
+            position="right"
+        >
+            <template #container="{ closeCallback }">
+                <CardDetail
+                    v-if="visible && cardDetailIndex !== -1"
+                    v-model="cards[cardDetailIndex]"
+                    :group="group"
+                    @close="closeCallback"
+                />
+            </template>
+        </Drawer>
         <div class="mb-3 flex items-center gap-1 px-4 pt-4">
             <div class="w-2 h-2 rounded-full bg-blue-500"></div>
             <p class="text-lg font-semibold">
@@ -74,7 +104,10 @@ const onAdd = async (e: any) => {
             @change="onAdd"
         >
             <template #item="{ element }">
-                <Card :card="element" />
+                <Card
+                    :card="element"
+                    @click="openDetail(element)"
+                />
             </template>
         </draggable>
     </div>

@@ -6,10 +6,10 @@ export const getBoardsApi = (): Promise<any> => {
     });
 };
 
-export const createBoardApi = (title: string): Promise<any> => {
-    return $http.workspace("/boards", {
+export const createBoardApi = (name: string): Promise<any> => {
+    return $http.default("/boards", {
         method: "POST",
-        body: { title },
+        body: { name },
     });
 };
 
@@ -84,6 +84,7 @@ interface ChangeCardPositionPayload {
     previousCardId: string | null;
     newGroupId: string;
 }
+
 export const changeCardPositionApi = (
     groupId: string,
     cardId: string,
@@ -92,6 +93,32 @@ export const changeCardPositionApi = (
     return $http.default(`/boards/group-cards/${groupId}/cards/${cardId}/change-position`, {
         method: "POST",
         body: payload,
+    });
+};
+
+interface addLabelPayload {
+    name: string | null;
+    color: string;
+}
+
+export const addCardLabelApi = (
+    groupId: string,
+    cardId: string,
+    payload: addLabelPayload,
+): Promise<any> => {
+    return $http.default(`/boards/group-cards/${groupId}/cards/${cardId}/add-label`, {
+        method: "POST",
+        body: payload,
+    });
+};
+
+export const deleteCardLabelApi = (
+    groupId: string,
+    cardId: string,
+    labelId: string,
+): Promise<any> => {
+    return $http.default(`/boards/group-cards/${groupId}/cards/${cardId}/remove-label/${labelId}`, {
+        method: "DELETE",
     });
 };
 
