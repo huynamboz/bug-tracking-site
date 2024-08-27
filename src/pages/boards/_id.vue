@@ -37,10 +37,8 @@ const handleCreateGroup = async (data: string) => {
 };
 </script>
 <template>
-    <div class="w-full h-full overflow-hidden flex flex-col">
+    <div class="w-full h-full overflow-hidden flex">
         <!-- header -->
-        <div></div>
-
         <!-- main -->
         <div class="w-full overflow-x-auto flex p-5 gap-5">
             <draggable

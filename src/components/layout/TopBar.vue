@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import Button from "primevue/button";
 import TopBarWorkspaceSwitcher from "./TopBar/TopBarWorkspaceSwitcher.vue";
+import { useAuthStore } from "@/stores";
+const authStore = useAuthStore();
 </script>
 <template>
     <div
@@ -8,6 +11,16 @@ import TopBarWorkspaceSwitcher from "./TopBar/TopBarWorkspaceSwitcher.vue";
         <div class="navbar__left flex gap-5 items-center">
             <TopBarWorkspaceSwitcher />
             <!-- <TopBarMembers /> -->
+        </div>
+        <div>
+            <Button
+                class="text-xs"
+                size="small"
+                @click="authStore.logout"
+            >
+                <Icon icon="hugeicons:login-03" />
+                <p>Logout</p>
+            </Button>
         </div>
         <!-- <IconField>
             <InputIcon class="pi pi-search" />

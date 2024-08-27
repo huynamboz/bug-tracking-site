@@ -25,7 +25,7 @@ export const useAuthStore = defineStore({
                 access: "",
                 refresh: "",
             };
-            // location.reload();
+            location.reload();
             // router.push({ name: "login" });
         },
         setUser(user: IUser) {

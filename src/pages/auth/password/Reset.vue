@@ -81,11 +81,6 @@ const checkConfirmPassword = () => {};
             @accept="question.action()"
         /> -->
         <div class="forgot-header">
-            <!-- <img
-                src="~/assets/icons/sucodev_logo.svg"
-                alt
-                @click="$router.push('/login')"
-            /> -->
         </div>
         <div class="forgot-container">
             <div class="forgot-container-head">{{ $t('auth.create_new_pass') }}</div>

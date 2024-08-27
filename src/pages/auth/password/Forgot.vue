@@ -84,11 +84,6 @@ async function handleForgot() {
             @accept="question.action()"
         /> -->
         <div class="forgot-header">
-            <!-- <img
-                src="~/assets/icons/sucodev_logo.svg"
-                class="logoImg"
-                @click="$router.push('/login')"
-            /> -->
         </div>
         <div class="forgot-container">
             <div class="forgot-container-head">{{ $t("auth.forgot_pass") }}</div>

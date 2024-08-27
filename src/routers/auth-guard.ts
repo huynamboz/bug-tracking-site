@@ -4,7 +4,7 @@ import { useWorkspaceStore } from "@/stores/workspace";
 import type { NavigationGuardWithThis } from "vue-router";
 
 export const authGuard: NavigationGuardWithThis<any> = async (to, from, next) => {
-    document.title = `Sucodev`;
+    document.title = `TASK TRACKER`;
     const authStore = useAuthStore();
     console.log("authGuard", authStore.getIsLoggedIn, to);
 

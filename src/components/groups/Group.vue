@@ -67,7 +67,7 @@ const openDetail = (val: Task) => {
 };
 </script>
 <template>
-    <div class="h-fit w-[280px] bg-[#f6f7f9] rounded-xl">
+    <div class="flex flex-col w-[280px] bg-[#f6f7f9] rounded-xl h-full overflow-hidden">
         <Drawer
             v-model:visible="visible"
             class="w-[400px]"
@@ -84,10 +84,16 @@ const openDetail = (val: Task) => {
             </template>
         </Drawer>
         <div class="mb-3 flex items-center gap-1 px-4 pt-4">
-            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+            <div class="w-2 min-w-2 h-2 rounded-full bg-blue-500"></div>
             <p class="text-lg font-semibold">
                 {{ group.name }}
             </p>
+            <div class="ml-auto w-2 min-w-2 h-2">
+                <Icon
+                    icon="fluent:more-vertical-24-filled"
+                    class="text-gray-500 text-xl min-w-5 cursor-pointer"
+                />
+            </div>
         </div>
         <div class="px-4 pb-2">
             <CreateGroup
@@ -97,7 +103,7 @@ const openDetail = (val: Task) => {
         </div>
         <draggable
             :drag="true"
-            class="flex flex-col overflow-hidden h-full"
+            class="flex flex-col overflow-y-auto h-full"
             group="cards"
             :list="cards"
             item-key="id"

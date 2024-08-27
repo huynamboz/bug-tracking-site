@@ -76,12 +76,12 @@ const onSubmit = handleSubmit(async (values) => {
                 ></Button>
                 <div class="flex justify-center mt-6">
                     <p>Chưa có tài khoản?</p>
-                    <div
+                    <RouterLink
                         class="ml-[6px] text-[#0921D9] font-semibold"
                         to="/register"
                     >
                         đăng ký
-                    </div>
+                    </RouterLink>
                 </div>
             </form>
         </div>

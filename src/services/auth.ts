@@ -26,13 +26,11 @@ export const loginApi = async (
 interface RegisterBody {
     email: string;
     password: string;
-    confirmation_password: string;
-    language_id: string;
-    is_company: boolean;
+    name: string;
 }
 
 export const registerApi = async (data: RegisterBody): Promise<any> => {
-    return $http.default("/users/sign-up", { body: data, method: "POST" }, false);
+    return $http.default("/auth/register", { body: data, method: "POST" }, false);
 };
 
 export const confirmEmailApi = async (token: string): Promise<any> => {
