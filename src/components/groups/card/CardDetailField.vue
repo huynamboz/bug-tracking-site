@@ -21,6 +21,9 @@ const handleAddLabel = async (data: { name: string; color: string }) => {
     console.log(data);
     try {
         const res = await addCardLabelApi(prop.groupId, card.value.id, data);
+        if (!card.value.labels) {
+            card.value.labels = [];
+        }
         card.value.labels.push(res);
         isShowAddLabel.value = false;
     } catch (error) {
@@ -32,6 +35,9 @@ const handleAddLabel = async (data: { name: string; color: string }) => {
 const hanleDeleteLabel = async (id: string) => {
     try {
         await deleteCardLabelApi(prop.groupId, card.value.id, id);
+        if (!card.value.labels) {
+            card.value.labels = [];
+        }
         card.value.labels = card.value.labels.filter((label) => label.id !== id);
     } catch (error) {
         console.log(error);
