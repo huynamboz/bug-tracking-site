@@ -9,6 +9,10 @@ const prop = defineProps<{
     group: IGroup;
 }>();
 
+defineEmits<{
+    (e: "close"): void;
+}>();
+
 const card = defineModel<Task>({ required: true });
 
 const isShowEdit = ref(false);
@@ -39,7 +43,11 @@ const title = ref(card.value.name);
         <!-- header -->
         <div class="h-10 border-b flex justify-between items-center px-5">
             <div class="flex items-center gap-2">
-                <Icon icon="hugeicons:cancel-01" />
+                <Icon
+                    class="cursor-pointer"
+                    icon="hugeicons:cancel-01"
+                    @click="$emit('close')"
+                />
                 <div class="border-r-2 h-5"></div>
                 <p>
                     {{ group.name }}
